@@ -14,8 +14,8 @@ class CollectionProvider extends BaseProvider implements ProviderInterface
         $data = $this->get('collections/', $this->credentials->getPosition());
 
         $collections = [];
-        foreach ($data['collection'] as $collectionData) {
-            $collections[] = $this->createCollectionObject($collectionData);
+        foreach ($data as $row) {
+            $collections[] = $this->createCollectionObject($row);
         }
 
         return $collections;
@@ -30,7 +30,7 @@ class CollectionProvider extends BaseProvider implements ProviderInterface
     {
         $collection = new Collection();
         $collection->setId($data['id']);
-        $collection->setName($data['title']);
+        $collection->setName($data['name']);
 
         return $collection;
     }
