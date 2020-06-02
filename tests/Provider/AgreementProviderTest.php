@@ -8,12 +8,11 @@ use JGI\Oneflow\Credentials;
 use JGI\Oneflow\Model\Agreement;
 use JGI\Oneflow\Oneflow;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
 class AgreementProviderTest extends TestCase
 {
+    use ProviderTestTrait;
+
     /**
      * @test
      */
@@ -297,22 +296,5 @@ class AgreementProviderTest extends TestCase
         $this->assertEquals(2441536, $agreement->getParties()[1]->getParticipants()[0]->getId());
         $this->assertEquals('jon@jon.se', $agreement->getParties()[1]->getParticipants()[0]->getEmail());
         $this->assertNull($agreement->getParties()[1]->getParticipants()[0]->getPositionId());
-    }
-
-    /**
-     * @param string|null $json
-     *
-     * @return \PHPUnit\Framework\MockObject\MockObject|HttpClient
-     */
-    private function getHttpClient(?string $json)
-    {
-        $httpClientMock = $this->getMockBuilder(Client::class)->getMock();
-        $responseMock = $this->getMockBuilder(ResponseInterface::class)->getMock();
-        $streamMock = $this->getMockBuilder(StreamInterface::class)->getMock();
-        $streamMock->method('getContents')->willReturn($json);
-        $responseMock->method('getBody')->willReturn($streamMock);
-        $httpClientMock->method('__call')->willReturn($responseMock);
-
-        return $httpClientMock;
     }
 }

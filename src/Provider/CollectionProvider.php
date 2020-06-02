@@ -11,20 +11,27 @@ class CollectionProvider extends BaseProvider implements ProviderInterface
      */
     public function all()
     {
-        /*
-         * [{"id":401048,"name":"oneflow-collection","permissions":{"agreement:create":true}}]
-         */
         $data = $this->get('collections/', $this->credentials->getPosition());
 
         $collections = [];
-        foreach ($data as $row) {
-            $collection = new Collection();
-            $collection->setId($row['id']);
-            $collection->setName($row['name']);
-
-            $collections[] = $collection;
+        foreach ($data['collection'] as $collectionData) {
+            $collections[] = $this->createCollectionObject($collectionData);
         }
 
         return $collections;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return Collection
+     */
+    private function createCollectionObject(array $data): Collection
+    {
+        $collection = new Collection();
+        $collection->setId($data['id']);
+        $collection->setName($data['title']);
+
+        return $collection;
     }
 }

@@ -44,6 +44,10 @@ abstract class BaseProvider implements ProviderInterface
 
         $json = $response->getBody()->getContents();
 
+        if ($response->getStatusCode() == 401) {
+            throw new \Exception($json);
+        }
+
         return json_decode($json, true);
     }
 
@@ -64,6 +68,10 @@ abstract class BaseProvider implements ProviderInterface
         );
 
         $json = $response->getBody()->getContents();
+
+        if ($response->getStatusCode() == 401) {
+            throw new \Exception($json);
+        }
 
         return json_decode($json, true);
     }
