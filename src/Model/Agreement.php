@@ -15,6 +15,13 @@ class Agreement
     private $name;
 
     /**
+     * Used when creating agreement
+     *
+     * @var Collection|null
+     */
+    private $collection;
+
+    /**
      * @var Collection[]|null
      */
     private $collections;
@@ -78,6 +85,22 @@ class Agreement
            $this->collections = [];
         }
         $this->collections[] = $collection;
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getCollection(): ?Collection
+    {
+        return $this->collection;
+    }
+
+    /**
+     * @param Collection|null $collection
+     */
+    public function setCollection(?Collection $collection): void
+    {
+        $this->collection = $collection;
     }
 
     /**
