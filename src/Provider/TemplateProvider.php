@@ -3,6 +3,7 @@
 namespace JGI\Oneflow\Provider;
 
 use JGI\Oneflow\Model\Agreement;
+use JGI\Oneflow\Model\Collection;
 use JGI\Oneflow\Model\Template;
 
 class TemplateProvider extends BaseProvider implements ProviderInterface
@@ -22,6 +23,13 @@ class TemplateProvider extends BaseProvider implements ProviderInterface
 
             $agreement = new Agreement();
             $agreement->setId($row['agreement']['id']);
+            foreach ($row['agreement']['collections'] as $collectionData) {
+                $collection = new Collection();
+                $collection->setId($collectionData['id']);
+                $collection->setName($collectionData['name']);
+                $agreement->addCollection($collection);
+            }
+
             $template->setAgreement($agreement);
 
             $templates[] = $template;

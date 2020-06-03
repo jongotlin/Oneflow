@@ -15,9 +15,9 @@ class Agreement
     private $name;
 
     /**
-     * @var Collection|null
+     * @var Collection[]|null
      */
-    private $collection;
+    private $collections;
 
     /**
      * @var Template|null
@@ -62,19 +62,22 @@ class Agreement
     }
 
     /**
-     * @return Collection|null
+     * @return Collection[]|null
      */
-    public function getCollection(): ?Collection
+    public function getCollections(): ?array
     {
-        return $this->collection;
+        return $this->collections;
     }
 
     /**
      * @param Collection $collection
      */
-    public function setCollection(Collection $collection): void
+    public function addCollection(Collection $collection): void
     {
-        $this->collection = $collection;
+        if (is_null($this->collections)) {
+           $this->collections = [];
+        }
+        $this->collections[] = $collection;
     }
 
     /**
