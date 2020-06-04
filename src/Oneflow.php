@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use JGI\Oneflow\Provider\AgreementProvider;
 use JGI\Oneflow\Provider\CollectionProvider;
+use JGI\Oneflow\Provider\PingProvider;
 use JGI\Oneflow\Provider\PositionProvider;
 use JGI\Oneflow\Provider\TemplateProvider;
 
@@ -87,5 +88,11 @@ class Oneflow
         return new TemplateProvider($this->client, $this->credentials);
     }
 
-
+    /**
+     * @return PingProvider
+     */
+    public function ping(): PingProvider
+    {
+        return new PingProvider($this->client, $this->credentials);
+    }
 }
