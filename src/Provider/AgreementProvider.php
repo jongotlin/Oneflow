@@ -131,4 +131,12 @@ class AgreementProvider extends BaseProvider implements ProviderInterface
 
         $this->post(sprintf('agreements/%s/publish', $agreement->getId()), $data, $this->credentials->getPosition());
     }
+
+    /**
+     * @param Agreement $agreement
+     */
+    public function delete(Agreement $agreement): void
+    {
+        $this->deleteRequest(sprintf('agreements/%s', $agreement->getId()), $this->credentials->getPosition());
+    }
 }

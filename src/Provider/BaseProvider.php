@@ -105,6 +105,28 @@ abstract class BaseProvider implements ProviderInterface
 
     /**
      * @param string $path
+     * @param int|null $position
+     *
+     * @return array|null
+     */
+    protected function deleteRequest(string $path, ?int $position): ?array
+    {
+        $response = $this->client->delete(
+            $this->getUrl($path),
+            $this->createOptions($position)
+        );
+
+        $json = $response->getBody()->getContents();
+
+        if ($response->getStatusCode() == 401) {
+            throw new \Exception($json);
+        }
+
+        return json_decode($json, true);
+    }
+
+    /**
+     * @param string $path
      *
      * @return string
      */
@@ -113,6 +135,12 @@ abstract class BaseProvider implements ProviderInterface
         return Oneflow::API_URL . $path;
     }
 
+    /**
+     * @param int|null $position
+     * @param bool $json
+     *
+     * @return array
+     */
     private function createOptions(?int $position, bool $json = true): array
     {
         $options = [
