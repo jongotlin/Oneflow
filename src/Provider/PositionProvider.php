@@ -37,7 +37,6 @@ class PositionProvider extends BaseProvider implements ProviderInterface
     {
         $data = $this->get('positions/?email=' . urlencode($email));
 
-        $positions = [];
         foreach ($data['collection'] as $row) {
             $position = new Position();
             $position->setId($row['id']);

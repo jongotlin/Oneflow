@@ -5,6 +5,7 @@ namespace JGI\Oneflow\Provider;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use JGI\Oneflow\Credentials;
+use JGI\Oneflow\Exception\OneflowException;
 use JGI\Oneflow\Oneflow;
 
 abstract class BaseProvider implements ProviderInterface
@@ -45,7 +46,7 @@ abstract class BaseProvider implements ProviderInterface
         $json = $response->getBody()->getContents();
 
         if ($response->getStatusCode() == 401) {
-            throw new \Exception($json);
+            throw new OneflowException($json);
         }
 
         return json_decode($json, true);
@@ -70,7 +71,7 @@ abstract class BaseProvider implements ProviderInterface
         $json = $response->getBody()->getContents();
 
         if ($response->getStatusCode() == 401) {
-            throw new \Exception($json);
+            throw new OneflowException($json);
         }
 
         return json_decode($json, true);
@@ -100,6 +101,10 @@ abstract class BaseProvider implements ProviderInterface
 
         $json = $response->getBody()->getContents();
 
+        if ($response->getStatusCode() == 401) {
+            throw new OneflowException($json);
+        }
+        
         return json_decode($json, true);
     }
 
@@ -119,7 +124,7 @@ abstract class BaseProvider implements ProviderInterface
         $json = $response->getBody()->getContents();
 
         if ($response->getStatusCode() == 401) {
-            throw new \Exception($json);
+            throw new OneflowException($json);
         }
 
         return json_decode($json, true);
