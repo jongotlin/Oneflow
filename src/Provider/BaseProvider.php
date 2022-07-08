@@ -32,20 +32,18 @@ abstract class BaseProvider implements ProviderInterface
 
     /**
      * @param string $path
-     * @param int|null $position
-     *
      * @return array|null
      */
-    protected function get(string $path, ?int $position = null): ?array
+    protected function get(string $path): ?array
     {
         $response = $this->client->get(
             $this->getUrl($path),
-            $this->createOptions($position)
+            $this->createOptions()
         );
 
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() == 401) {
+        if ($response->getStatusCode() != 200) {
             throw new OneflowException($json);
         }
 
@@ -55,22 +53,20 @@ abstract class BaseProvider implements ProviderInterface
     /**
      * @param string $path
      * @param array $data
-     * @param int|null $position
-     *
      * @return array|null
      */
-    protected function post(string $path, array $data, ?int $position): ?array
+    protected function post(string $path, array $data): ?array
     {
         $response = $this->client->post(
             $this->getUrl($path),
             array_merge([
                 RequestOptions::JSON => $data,
-            ], $this->createOptions($position))
+            ], $this->createOptions())
         );
 
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() == 401) {
+        if ($response->getStatusCode() != 200) {
             throw new OneflowException($json);
         }
 
@@ -80,54 +76,45 @@ abstract class BaseProvider implements ProviderInterface
     /**
      * @param string $path
      * @param \SplFileInfo $file
-     * @param int|null $position
-     *
      * @return array|null
      */
-    protected function postFile(string $path, \SplFileInfo $file, ?int $position): ?array
+    protected function postFile(string $path, \SplFileInfo $file): ?array
     {
-        $response = $this->client->post(
-            $this->getUrl($path),
-            array_merge([
-                RequestOptions::MULTIPART => [
-                    [
-                        'name' => 'file',
-                        'contents' => fopen($file->getPathname(), 'r'),
-                        'filename' => 'file.pdf',
-                    ],
+        $options = array_merge([
+            RequestOptions::MULTIPART => [
+                [
+                    'name' => 'upload_as',
+                    'contents' => 'expanded_pdf',
                 ],
-            ], $this->createOptions($position, false))
-        );
+                [
+                    'name' => 'file',
+                    'contents' => fopen($file->getPathname(), 'r'),
+                ],
+            ],
+        ], $this->createOptions(false));
 
+        $response = $this->client->post($this->getUrl($path), $options);
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() == 401) {
+        if ($response->getStatusCode() != 200) {
             throw new OneflowException($json);
         }
-        
+
         return json_decode($json, true);
     }
 
     /**
      * @param string $path
-     * @param int|null $position
-     *
-     * @return array|null
      */
-    protected function deleteRequest(string $path, ?int $position): ?array
+    protected function deleteRequest(string $path): void
     {
-        $response = $this->client->delete(
-            $this->getUrl($path),
-            $this->createOptions($position)
-        );
+        $response = $this->client->delete($this->getUrl($path), $this->createOptions());
 
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() == 401) {
+        if ($response->getStatusCode() != 200) {
             throw new OneflowException($json);
         }
-
-        return json_decode($json, true);
     }
 
     /**
@@ -141,24 +128,20 @@ abstract class BaseProvider implements ProviderInterface
     }
 
     /**
-     * @param int|null $position
-     * @param bool $json
-     *
+     * @param bool $isJson
      * @return array
      */
-    private function createOptions(?int $position, bool $json = true): array
+    private function createOptions(bool $isJson = true): array
     {
         $options = [
             RequestOptions::HEADERS => [
-                'X-Flow-API-Token' => $this->credentials->getToken(),
+                'x-oneflow-api-token' => $this->credentials->getToken(),
+                'x-oneflow-user-email' => $this->credentials->getEmail(),
             ],
         ];
-        if ($json) {
-            $options[RequestOptions::HEADERS]['Content-Type'] = 'application/json';
-        }
 
-        if (!is_null($position)) {
-            $options[RequestOptions::HEADERS]['X-Flow-Current-Position'] = $position;
+        if ($isJson) {
+            $options[RequestOptions::HEADERS]['Content-Type'] = 'application/json';
         }
 
         return $options;

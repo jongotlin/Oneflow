@@ -10,11 +10,6 @@ class Participant
     private $id;
 
     /**
-     * @var int|null
-     */
-    private $positionId;
-
-    /**
      * @var string|null
      */
     private $name;
@@ -28,6 +23,9 @@ class Participant
      * @var string|null
      */
     private $email;
+
+    /** @var string */
+    private $deliveryChannel = 'none';
 
     /**
      * @return int|null
@@ -43,22 +41,6 @@ class Participant
     public function setId(?int $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getPositionId(): ?int
-    {
-        return $this->positionId;
-    }
-
-    /**
-     * @param int|null $positionId
-     */
-    public function setPositionId(?int $positionId): void
-    {
-        $this->positionId = $positionId;
     }
 
     /**
@@ -78,17 +60,17 @@ class Participant
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * @param string|null $title
+     * @param string $title
      */
-    public function setTitle(?string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -107,5 +89,21 @@ class Participant
     public function setEmail(?string $email): void
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeliveryChannel(): string
+    {
+        return $this->deliveryChannel;
+    }
+
+    /**
+     * @param string $deliveryChannel
+     */
+    public function setDeliveryChannel(string $deliveryChannel): void
+    {
+        $this->deliveryChannel = $deliveryChannel;
     }
 }

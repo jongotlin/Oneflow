@@ -2,22 +2,19 @@
 
 namespace JGI\Oneflow\Model;
 
-class Template
+class TemplateType
 {
-    /** @var int|null */
+    /** @var int */
     private $id;
 
-    /** @var string|null */
+    /** @var string */
     private $name;
 
-    /** TemplateType|null */
-    private $type;
+    /** @var string */
+    private $description;
 
-    /** TemplateTag[] */
-    private $tags;
-
-    /** @var bool */
-    private $isActive;
+    /** @var string */
+    private $extensionType;
 
     /** @var \DateTime|null */
     private $createdAt;
@@ -26,83 +23,67 @@ class Template
     private $updatedAt;
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param int|null $id
+     * @param int $id
      */
-    public function setId(?int $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param string|null $name
+     * @param string $name
      */
-    public function setName(?string $name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getType()
+    public function getDescription(): string
     {
-        return $this->type;
+        return $this->description;
     }
 
     /**
-     * @param mixed $type
+     * @param string $description
      */
-    public function setType($type): void
+    public function setDescription(string $description): void
     {
-        $this->type = $type;
+        $this->description = $description;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getTags()
+    public function getExtensionType(): string
     {
-        return $this->tags;
+        return $this->extensionType;
     }
 
     /**
-     * @param mixed $tags
+     * @param string $extensionType
      */
-    public function setTags($tags): void
+    public function setExtensionType(string $extensionType): void
     {
-        $this->tags = $tags;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * @param bool $isActive
-     */
-    public function setIsActive(bool $isActive): void
-    {
-        $this->isActive = $isActive;
+        $this->extensionType = $extensionType;
     }
 
     /**

@@ -12,17 +12,20 @@ class Party
     /**
      * @var string|null
      */
-    private $orgnr;
+    private $identificationNumber;
 
     /**
      * @var string|null
      */
-    private $country;
+    private $countryCode;
 
     /**
      * @var bool
      */
-    private $consumer = false;
+    private $isMyParty = false;
+
+    /** @var string  */
+    private $type = 'company';
 
     /**
      * @var Participant[]
@@ -48,49 +51,65 @@ class Party
     /**
      * @return string|null
      */
-    public function getOrgnr(): ?string
+    public function getIdentificationNumber(): ?string
     {
-        return $this->orgnr;
+        return $this->identificationNumber;
     }
 
     /**
-     * @param string|null $orgnr
+     * @param string|null $identificationNumber
      */
-    public function setOrgnr(?string $orgnr): void
+    public function setIdentificationNumber(?string $identificationNumber): void
     {
-        $this->orgnr = $orgnr;
+        $this->identificationNumber = $identificationNumber;
     }
 
     /**
      * @return string|null
      */
-    public function getCountry(): ?string
+    public function getCountryCode(): ?string
     {
-        return $this->country;
+        return $this->countryCode;
     }
 
     /**
-     * @param string|null $country
+     * @param string|null $countryCode
      */
-    public function setCountry(?string $country): void
+    public function setCountryCode(?string $countryCode): void
     {
-        $this->country = $country;
+        $this->countryCode = $countryCode;
     }
 
     /**
      * @return bool
      */
-    public function isConsumer(): bool
+    public function isMyParty(): bool
     {
-        return $this->consumer;
+        return $this->isMyParty;
     }
 
     /**
-     * @param bool $consumer
+     * @param bool $isMyParty
      */
-    public function setConsumer(bool $consumer): void
+    public function setIsMyParty(bool $isMyParty): void
     {
-        $this->consumer = $consumer;
+        $this->isMyParty = $isMyParty;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
     }
 
     /**
@@ -99,6 +118,14 @@ class Party
     public function getParticipants(): array
     {
         return $this->participants;
+    }
+
+    /**
+     * @param Participant[] $participants
+     */
+    public function setParticipants(array $participants): void
+    {
+        $this->participants = $participants;
     }
 
     /**

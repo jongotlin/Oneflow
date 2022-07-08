@@ -4,24 +4,20 @@ namespace JGI\Oneflow;
 
 class Credentials
 {
-    /**
-     * @var string
-     */
+    /** @var string  */
     private $token;
 
-    /**
-     * @var int|null
-     */
-    private $position;
+    /** @var string */
+    private $email;
 
     /**
      * @param string $token
-     * @param int|null $position
+     * @param string $email
      */
-    public function __construct(string $token, ?int $position = null)
+    public function __construct(string $token, string $email)
     {
         $this->token = $token;
-        $this->position = $position;
+        $this->email = $email;
     }
 
     /**
@@ -33,18 +29,10 @@ class Credentials
     }
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getPosition(): ?int
+    public function getEmail(): string
     {
-        return $this->position;
-    }
-
-    /**
-     * @param int|null $position
-     */
-    public function setPosition(?int $position): void
-    {
-        $this->position = $position;
+        return $this->email;
     }
 }
