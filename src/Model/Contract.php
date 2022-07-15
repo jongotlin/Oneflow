@@ -2,7 +2,7 @@
 
 namespace JGI\Oneflow\Model;
 
-class Agreement
+class Contract
 {
     /**
      * @var int|null
@@ -10,21 +10,16 @@ class Agreement
     private $id;
 
     /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * Used when creating agreement
+     * Used when creating contract
      *
-     * @var Collection|null
+     * @var Workspace|null
      */
-    private $collection;
+    private $workspace;
 
     /**
-     * @var Collection[]|null
+     * @var Workspace[]|null
      */
-    private $collections;
+    private $workspaces;
 
     /**
      * @var Template|null
@@ -53,54 +48,39 @@ class Agreement
     }
 
     /**
-     * @return string|null
+     * @return Workspace[]|null
      */
-    public function getName(): ?string
+    public function getWorkspaces(): ?array
     {
-        return $this->name;
+        return $this->workspaces;
     }
 
     /**
-     * @param string|null $name
+     * @param Workspace $workspace
      */
-    public function setName(?string $name): void
+    public function addWorkspace(Workspace $workspace): void
     {
-        $this->name = $name;
-    }
-
-    /**
-     * @return Collection[]|null
-     */
-    public function getCollections(): ?array
-    {
-        return $this->collections;
-    }
-
-    /**
-     * @param Collection $collection
-     */
-    public function addCollection(Collection $collection): void
-    {
-        if (is_null($this->collections)) {
-           $this->collections = [];
+        if (is_null($this->workspaces)) {
+           $this->workspaces = [];
         }
-        $this->collections[] = $collection;
+
+        $this->workspaces[] = $workspace;
     }
 
     /**
-     * @return Collection|null
+     * @return Workspace|null
      */
-    public function getCollection(): ?Collection
+    public function getWorkspace(): ?Workspace
     {
-        return $this->collection;
+        return $this->workspace;
     }
 
     /**
-     * @param Collection|null $collection
+     * @param Workspace|null $workspace
      */
-    public function setCollection(?Collection $collection): void
+    public function setWorkspace(?Workspace $workspace): void
     {
-        $this->collection = $collection;
+        $this->workspace = $workspace;
     }
 
     /**

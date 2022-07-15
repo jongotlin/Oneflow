@@ -3,16 +3,16 @@
 namespace JGI\Oneflow;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
-use JGI\Oneflow\Provider\AgreementProvider;
-use JGI\Oneflow\Provider\CollectionProvider;
+use JGI\Oneflow\Provider\AccountProvider;
+use JGI\Oneflow\Provider\ContractProvider;
 use JGI\Oneflow\Provider\PingProvider;
-use JGI\Oneflow\Provider\PositionProvider;
 use JGI\Oneflow\Provider\TemplateProvider;
+use JGI\Oneflow\Provider\UserProvider;
+use JGI\Oneflow\Provider\WorkspaceProvider;
 
 class Oneflow
 {
-    const API_URL = 'https://app.oneflow.com/api/';
+    const API_URL = 'https://api.oneflow.com/v1/';
 
     /**
      * @var Client
@@ -57,27 +57,35 @@ class Oneflow
     }
 
     /**
-     * @return CollectionProvider
+     * @return AccountProvider
      */
-    public function collections(): CollectionProvider
+    public function account(): AccountProvider
     {
-        return new CollectionProvider($this->client, $this->credentials);
+        return new AccountProvider($this->client, $this->credentials);
     }
-    
+
     /**
-     * @return AgreementProvider
+     * @return UserProvider
      */
-    public function agreements(): AgreementProvider
+    public function users(): UserProvider
     {
-        return new AgreementProvider($this->client, $this->credentials);
+        return new UserProvider($this->client, $this->credentials);
     }
-    
+
     /**
-     * @return PositionProvider
+     * @return WorkspaceProvider
      */
-    public function positions(): PositionProvider
+    public function workspaces(): WorkspaceProvider
     {
-        return new PositionProvider($this->client, $this->credentials);
+        return new WorkspaceProvider($this->client, $this->credentials);
+    }
+
+    /**
+     * @return ContractProvider
+     */
+    public function contracts(): ContractProvider
+    {
+        return new ContractProvider($this->client, $this->credentials);
     }
 
     /**
