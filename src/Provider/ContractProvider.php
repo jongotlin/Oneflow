@@ -89,21 +89,21 @@ class ContractProvider extends BaseProvider implements ProviderInterface
     }
 
     /**
-     * @param int $contractId
+     * @param string $contractId
      * @param \SplFileInfo $file
      */
-    public function attachPdf(int $contractId, \SplFileInfo $file): void
+    public function attachPdf(string $contractId, \SplFileInfo $file): void
     {
         $route = sprintf('%s/%s/files', $this->route, $contractId);
         $this->postFile($route, $file);
     }
 
     /**
-     * @param int $contractId
+     * @param string $contractId
      * @param string $subject
      * @param string $message
      */
-    public function publish(int $contractId, string $subject, string $message): void
+    public function publish(string $contractId, string $subject, string $message): void
     {
         $data = [
             'subject' => $subject,
@@ -116,10 +116,10 @@ class ContractProvider extends BaseProvider implements ProviderInterface
 
 
     /**
-     * @param int $contractId
+     * @param string $contractId
      */
-    public function delete(int $contractId): void
+    public function delete(string $contractId): void
     {
-        $this->deleteRequest(sprintf('%s/%d', $this->route, $contractId));
+        $this->deleteRequest(sprintf('%s/%s', $this->route, $contractId));
     }
 }

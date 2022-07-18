@@ -43,7 +43,8 @@ abstract class BaseProvider implements ProviderInterface
 
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() != 200) {
+        $code = $response->getStatusCode();
+        if ($code && $code != 200) {
             throw new OneflowException($json);
         }
 
@@ -66,7 +67,8 @@ abstract class BaseProvider implements ProviderInterface
 
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() != 200) {
+        $code = $response->getStatusCode();
+        if ($code && $code != 200) {
             throw new OneflowException($json);
         }
 
@@ -96,7 +98,8 @@ abstract class BaseProvider implements ProviderInterface
         $response = $this->client->post($this->getUrl($path), $options);
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() != 200) {
+        $code = $response->getStatusCode();
+        if ($code && $code != 200) {
             throw new OneflowException($json);
         }
 
@@ -112,7 +115,8 @@ abstract class BaseProvider implements ProviderInterface
 
         $json = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() != 200) {
+        $code = $response->getStatusCode();
+        if ($code && $code != 200) {
             throw new OneflowException($json);
         }
     }
