@@ -7,14 +7,14 @@ class Credentials
     /** @var string  */
     private $token;
 
-    /** @var string */
+    /** @var string|null */
     private $email;
 
     /**
      * @param string $token
      * @param string $email
      */
-    public function __construct(string $token, string $email)
+    public function __construct(string $token, string $email = null)
     {
         $this->token = $token;
         $this->email = $email;
@@ -29,9 +29,9 @@ class Credentials
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }

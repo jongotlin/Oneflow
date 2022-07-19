@@ -137,11 +137,14 @@ abstract class BaseProvider implements ProviderInterface
      */
     private function createOptions(bool $isJson = true): array
     {
+        $headers = ['x-oneflow-api-token' => $this->credentials->getToken()];
+
+        if ($this->credentials->getEmail()) {
+            $headers['x-oneflow-user-email'] = $this->credentials->getEmail();
+        }
+
         $options = [
-            RequestOptions::HEADERS => [
-                'x-oneflow-api-token' => $this->credentials->getToken(),
-                'x-oneflow-user-email' => $this->credentials->getEmail(),
-            ],
+            RequestOptions::HEADERS => $headers,
         ];
 
         if ($isJson) {
