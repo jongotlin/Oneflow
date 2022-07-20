@@ -5,6 +5,7 @@ namespace JGI\Oneflow\Provider;
 use GuzzleHttp\Client;
 use JGI\Oneflow\Credentials;
 use JGI\Oneflow\Factory\ContractFactory;
+use JGI\Oneflow\Factory\CreateContractParamsFactory;
 use JGI\Oneflow\Model\Contract;
 
 class ContractProvider extends BaseProvider implements ProviderInterface
@@ -57,33 +58,8 @@ class ContractProvider extends BaseProvider implements ProviderInterface
      */
     public function create(Contract $contract): Contract
     {
-        $parties = [];
-        foreach ($contract->getParties() as $party) {
-            $participants = [];
-            foreach ($party->getParticipants() as $participant) {
-                $participants[] = [
-                    'name' => $participant->getName(),
-                    'title' => $participant->getTitle(),
-                    'email' => $participant->getEmail(),
-                    'delivery_channel' => $participant->getDeliveryChannel(),
-                ];
-            }
-            $parties[] = [
-                'name' => $party->getName(),
-                'identification_number' => $party->getIdentificationNumber(),
-                'country_code' => $party->getCountryCode(),
-                'type' => $party->getType(),
-                'participants' => $participants,
-            ];
-        }
-
-        $array = [
-            'workspace_id' => $contract->getWorkspace()->getId(),
-            'template_id' => $contract->getTemplate()->getId(),
-            'parties' => $parties,
-        ];
-
-        $data = $this->post($this->route . '/create', $array);
+        $params = (new CreateContractParamsFactory())->create($contract);
+        $data = $this->post($this->route . '/create', $params);
 
         return $this->contractFactory->create($data);
     }
