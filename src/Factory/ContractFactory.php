@@ -25,8 +25,9 @@ class ContractFactory
             $party->setIdentificationNumber($partyData['identification_number']);
             $party->setCountryCode($partyData['country_code']);
 
-            if (isset($partyData['participants'])) {
-                $participants = $this->createParticipants($partyData['participants']);
+            $participantsData = $this->getParticipantsData($partyData);
+            if ($participantsData) {
+                $participants = $this->createParticipants($participantsData);
                 $party->setParticipants($participants);
             }
 
@@ -34,6 +35,19 @@ class ContractFactory
         }
 
         return $contract;
+    }
+
+    private function getParticipantsData($data): array
+    {
+        if (isset($data['participants'])) {
+            return $data['participants'];
+        }
+
+        if (isset($data['participant'])) {
+            return [$data['participant']];
+        }
+
+        return [];
     }
 
     private function createParticipants($data): array
