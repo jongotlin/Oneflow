@@ -10,18 +10,18 @@ use JGI\Oneflow\Model\TemplateTag;
 use JGI\Oneflow\Model\TemplateType;
 use JGI\Oneflow\Oneflow;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 class TemplateProviderTest extends TestCase
 {
-    use ProviderTestTrait;
-
     /**
      * @test
      */
     public function template_provider()
     {
         $oneflow = new Oneflow(
-            $this->getHttpClient($this->getJson()),
+            new MockHttpClient(new MockResponse($this->getJson())),
             $this->createMock(Credentials::class)
         );
         $templates = $oneflow->templates()->index();

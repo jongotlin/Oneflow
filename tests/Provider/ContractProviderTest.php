@@ -8,11 +8,11 @@ use JGI\Oneflow\Credentials;
 use JGI\Oneflow\Model\Contract;
 use JGI\Oneflow\Oneflow;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 class ContractProviderTest extends TestCase
 {
-    use ProviderTestTrait;
-
     /**
      * @test
      */
@@ -21,7 +21,7 @@ class ContractProviderTest extends TestCase
         $json = $this->getJson();
 
         $oneflow = new Oneflow(
-            $this->getHttpClient($json),
+            new MockHttpClient(new MockResponse($json)),
             $this->createMock(Credentials::class)
         );
         $contracts = $oneflow->contracts()->index();

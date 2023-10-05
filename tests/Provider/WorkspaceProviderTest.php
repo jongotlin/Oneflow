@@ -8,10 +8,11 @@ use JGI\Oneflow\Credentials;
 use JGI\Oneflow\Model\Workspace;
 use JGI\Oneflow\Oneflow;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 class WorkspaceProviderTest extends TestCase
 {
-    use ProviderTestTrait;
 
     /**
      * @test
@@ -21,7 +22,7 @@ class WorkspaceProviderTest extends TestCase
         $json = $this->getJson();
 
         $oneflow = new Oneflow(
-            $this->getHttpClient($json),
+            new MockHttpClient(new MockResponse($json)),
             $this->createMock(Credentials::class)
         );
 
