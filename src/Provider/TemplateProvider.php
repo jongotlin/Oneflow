@@ -60,7 +60,7 @@ class TemplateProvider extends BaseProvider implements ProviderInterface
      */
     private function getTags(array $row): array
     {
-        if (!isset($row['tags']) && !is_array($row['tags'])) {
+        if (!isset($row['tags'])) {
             return [];
         }
 
