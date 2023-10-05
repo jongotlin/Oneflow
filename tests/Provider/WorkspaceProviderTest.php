@@ -13,7 +13,6 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 
 class WorkspaceProviderTest extends TestCase
 {
-
     /**
      * @test
      */

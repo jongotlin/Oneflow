@@ -13,7 +13,6 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 
 class UserProviderTest extends TestCase
 {
-
     /**
      * @test
      */

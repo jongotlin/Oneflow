@@ -10,7 +10,6 @@ class AccountProvider extends BaseProvider implements ProviderInterface
     {
         $data = $this->get('accounts/me/');
 
-
         $account = new Account();
         $account->setId($data['id']);
         $account->setName($data['name']);
