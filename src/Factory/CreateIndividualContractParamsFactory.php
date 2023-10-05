@@ -6,15 +6,11 @@ use JGI\Oneflow\Model\Contract;
 
 class CreateIndividualContractParamsFactory
 {
-    /**
-     * @param Contract $contract
-     * @return array
-     */
     public function create(Contract $contract): array
     {
         $result = [
-            'workspace_id' => $contract->getWorkspace()->getId(),
-            'template_id' => $contract->getTemplate()->getId(),
+            'workspace_id' => $contract->getWorkspace()?->getId(),
+            'template_id' => $contract->getTemplate()?->getId(),
         ];
 
         $party = $contract->getParties()[0];
@@ -26,7 +22,7 @@ class CreateIndividualContractParamsFactory
                 'type' => $party->getType(),
                 'participant' => [
                     '_permissions' => [
-                        'contract:update' => true
+                        'contract:update' => true,
                     ],
                     'name' => $participant->getName(),
                     'title' => $participant->getTitle(),
@@ -36,7 +32,7 @@ class CreateIndividualContractParamsFactory
                     'sign_method' => $participant->getSignMethod(),
                     'identification_number' => $participant->getIdentificationNumber(),
                 ],
-            ]
+            ],
         ];
 
         if (null !== $party = $contract->getMyParty()) {
@@ -48,7 +44,7 @@ class CreateIndividualContractParamsFactory
             foreach ($party->getParticipants() as $participant) {
                 $myParty['participants'][] = [
                     '_permissions' => [
-                        'contract:update' => true
+                        'contract:update' => true,
                     ],
                     'organizer' => true,
                     'name' => $participant->getName(),

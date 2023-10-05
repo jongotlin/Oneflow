@@ -26,12 +26,11 @@ class CreateBaseContractParamsFactory
                 'type' => $party->getType(),
                 'participants' => $participants,
             ];
-
         }
 
         return [
-            'workspace_id' => $contract->getWorkspace()->getId(),
-            'template_id' => $contract->getTemplate()->getId(),
+            'workspace_id' => $contract->getWorkspace()?->getId(),
+            'template_id' => $contract->getTemplate()?->getId(),
             'parties' => $parties,
         ];
     }

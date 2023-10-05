@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace JGI\Oneflow\Tests\Provider;
 
-use Http\Client\HttpClient;
 use GuzzleHttp\Client;
+use Http\Client\HttpClient;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
 trait ProviderTestTrait
 {
     /**
-     * @param string|null $json
-     *
      * @return \PHPUnit\Framework\MockObject\MockObject|HttpClient
      */
     private function getHttpClient(?string $json)

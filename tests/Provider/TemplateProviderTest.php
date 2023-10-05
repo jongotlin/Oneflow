@@ -18,7 +18,7 @@ class TemplateProviderTest extends TestCase
     /**
      * @test
      */
-    public function templateProvider()
+    public function template_provider()
     {
         $oneflow = new Oneflow(
             $this->getHttpClient($this->getJson()),

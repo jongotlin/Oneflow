@@ -16,7 +16,7 @@ class ContractProviderTest extends TestCase
     /**
      * @test
      */
-    public function contractProvider()
+    public function contract_provider()
     {
         $json = $this->getJson();
 

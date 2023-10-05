@@ -9,7 +9,7 @@ use JGI\Oneflow\Model\Contract;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * https://developer.oneflow.com/docs/contract
+ * https://developer.oneflow.com/docs/contract.
  */
 class ContractProvider extends BaseProvider implements ProviderInterface
 {
@@ -41,16 +41,15 @@ class ContractProvider extends BaseProvider implements ProviderInterface
 
     public function find(string $id): ?Contract
     {
-        $data = $this->get($this->route . '/' . $id);
+        $data = $this->get($this->route.'/'.$id);
 
-        return ! isset($data['error_code']) ? $this->contractFactory->create($data) : null;
+        return !isset($data['error_code']) ? $this->contractFactory->create($data) : null;
     }
-
 
     public function create(Contract $contract): Contract
     {
         $params = (new CreateContractParamsFactory())->create($contract);
-        $data = $this->post($this->route . '/create', $params);
+        $data = $this->post($this->route.'/create', $params);
 
         return $this->contractFactory->create($data);
     }
@@ -78,11 +77,11 @@ class ContractProvider extends BaseProvider implements ProviderInterface
     }
 
     /**
-     * https://developer.oneflow.com/reference/create-an-access-link
+     * https://developer.oneflow.com/reference/create-an-access-link.
      */
     public function accessLink(string $contractId, string $participantId): string
     {
-        $data = $this->post($this->route . '/' . $contractId . '/participants/' . $participantId . '/access_link', []);
+        $data = $this->post($this->route.'/'.$contractId.'/participants/'.$participantId.'/access_link', []);
 
         return $data['access_link'];
     }

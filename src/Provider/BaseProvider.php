@@ -23,7 +23,7 @@ abstract class BaseProvider implements ProviderInterface
         $json = $response->getContent(false);
 
         $code = $response->getStatusCode();
-        if ($code && $code != 200) {
+        if ($code && 200 != $code) {
             throw new OneflowException($json);
         }
 
@@ -42,7 +42,7 @@ abstract class BaseProvider implements ProviderInterface
         $json = $response->getContent(false);
 
         $code = $response->getStatusCode();
-        if ($code && $code != 200) {
+        if ($code && 200 != $code) {
             throw new OneflowException($json);
         }
 
@@ -68,16 +68,13 @@ abstract class BaseProvider implements ProviderInterface
         $json = $response->getBody()->getContents();
 
         $code = $response->getStatusCode();
-        if ($code && $code != 200) {
+        if ($code && 200 != $code) {
             throw new OneflowException($json);
         }
 
         return json_decode($json, true);
     }
 
-    /**
-     * @param string $path
-     */
     protected function deleteRequest(string $path): void
     {
         $response = $this->client->request('DELETE', $this->getUrl($path), $this->createOptions());
@@ -85,14 +82,14 @@ abstract class BaseProvider implements ProviderInterface
         $json = $response->getContent(false);
 
         $code = $response->getStatusCode();
-        if ($code && $code != 200) {
+        if ($code && 200 != $code) {
             throw new OneflowException($json);
         }
     }
 
     private function getUrl(string $path): string
     {
-        return Oneflow::API_URL . $path;
+        return Oneflow::API_URL.$path;
     }
 
     private function createOptions(bool $isJson = true): array

@@ -6,13 +6,9 @@ use JGI\Oneflow\Model\Contract;
 
 class CreateContractParamsFactory
 {
-    /**
-     * @param Contract $contract
-     * @return array
-     */
     public function create(Contract $contract): array
     {
-        if (count($contract->getParties()) == 1 && $contract->getParties()[0]->getType() == 'individual') {
+        if (1 == count($contract->getParties()) && 'individual' == $contract->getParties()[0]->getType()) {
             $result = (new CreateIndividualContractParamsFactory())->create($contract);
         } else {
             $result = (new CreateBaseContractParamsFactory())->create($contract);

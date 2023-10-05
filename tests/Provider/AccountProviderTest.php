@@ -15,7 +15,7 @@ class AccountProviderTest extends TestCase
     /**
      * @test
      */
-    public function accountProvider()
+    public function account_provider()
     {
         $json = $this->getJson();
 

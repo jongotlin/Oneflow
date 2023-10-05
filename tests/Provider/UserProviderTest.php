@@ -16,7 +16,7 @@ class UserProviderTest extends TestCase
     /**
      * @test
      */
-    public function userProvider()
+    public function user_provider()
     {
         $json = $this->getJson();
 

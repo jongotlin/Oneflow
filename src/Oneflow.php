@@ -12,11 +12,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Oneflow
 {
-    const API_URL = 'https://api.oneflow.com/v1/';
+    public const API_URL = 'https://api.oneflow.com/v1/';
 
     public function __construct(
         private HttpClientInterface $client,
-        private ?Credentials $credentials = null
+        private Credentials $credentials
     ) {
     }
 

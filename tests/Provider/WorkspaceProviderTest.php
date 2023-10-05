@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace JGI\Oneflow\Tests\Provider;
 
 use JGI\Oneflow\Credentials;
-use JGI\Oneflow\Model\User;
 use JGI\Oneflow\Model\Workspace;
 use JGI\Oneflow\Oneflow;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +16,7 @@ class WorkspaceProviderTest extends TestCase
     /**
      * @test
      */
-    public function workspaceProvider()
+    public function workspace_provider()
     {
         $json = $this->getJson();
 

@@ -38,7 +38,7 @@ class TemplateProvider extends BaseProvider implements ProviderInterface
 
     private function getType(array $row): ?TemplateType
     {
-        if (! isset($row['template_type'])) {
+        if (!isset($row['template_type'])) {
             return null;
         }
 
@@ -60,7 +60,7 @@ class TemplateProvider extends BaseProvider implements ProviderInterface
      */
     private function getTags(array $row): array
     {
-        if (! isset($row['tags']) && ! is_array($row['tags'])) {
+        if (!isset($row['tags']) && !is_array($row['tags'])) {
             return [];
         }
 
