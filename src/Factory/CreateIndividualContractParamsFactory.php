@@ -32,11 +32,32 @@ class CreateIndividualContractParamsFactory
                     'title' => $participant->getTitle(),
                     'email' => $participant->getEmail(),
                     'delivery_channel' => $participant->getDeliveryChannel(),
-                    'signatory' => true,
-                    'sign_method' => 'standard_esign',
+                    'signatory' => $participant->isSignatory(),
+                    'sign_method' => $participant->getSignMethod(),
+                    'identification_number' => $participant->getIdentificationNumber(),
                 ],
             ]
         ];
+
+        if (null !== $party = $contract->getMyParty()) {
+            $myParty = [
+                'name' => $party->getName(),
+                'country_code' => $party->getCountryCode(),
+                'participants' => [],
+            ];
+            foreach ($party->getParticipants() as $participant) {
+                $myParty['participants'][] = [
+                    '_permissions' => [
+                        'contract:update' => true
+                    ],
+                    'organizer' => true,
+                    'name' => $participant->getName(),
+                    'email' => $participant->getEmail(),
+                    'signatory' => $participant->isSignatory(),
+                ];
+            }
+            $result['my_party'] = $myParty;
+        }
 
         return $result;
     }

@@ -2,46 +2,25 @@
 
 namespace JGI\Oneflow\Provider;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
 use JGI\Oneflow\Credentials;
 use JGI\Oneflow\Exception\OneflowException;
 use JGI\Oneflow\Oneflow;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 abstract class BaseProvider implements ProviderInterface
 {
-    /**
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * @var Credentials
-     */
-    protected $credentials;
-
-    /**
-     * @param Client $client
-     * @param Credentials $credentials
-     */
-    public function __construct(Client $client, Credentials $credentials)
+    public function __construct(protected readonly HttpClientInterface $client, private readonly Credentials $credentials)
     {
-        $this->client = $client;
-        $this->credentials = $credentials;
     }
 
-    /**
-     * @param string $path
-     * @return array|null
-     */
     protected function get(string $path): ?array
     {
-        $response = $this->client->get(
+        $response = $this->client->request('GET',
             $this->getUrl($path),
             $this->createOptions()
         );
 
-        $json = $response->getBody()->getContents();
+        $json = $response->getContent(false);
 
         $code = $response->getStatusCode();
         if ($code && $code != 200) {
@@ -51,21 +30,16 @@ abstract class BaseProvider implements ProviderInterface
         return json_decode($json, true);
     }
 
-    /**
-     * @param string $path
-     * @param array $data
-     * @return array|null
-     */
     protected function post(string $path, array $data): ?array
     {
-        $response = $this->client->post(
+        $response = $this->client->request('POST',
             $this->getUrl($path),
             array_merge([
-                RequestOptions::JSON => $data,
+                'json' => $data,
             ], $this->createOptions())
         );
 
-        $json = $response->getBody()->getContents();
+        $json = $response->getContent(false);
 
         $code = $response->getStatusCode();
         if ($code && $code != 200) {
@@ -75,11 +49,6 @@ abstract class BaseProvider implements ProviderInterface
         return json_decode($json, true);
     }
 
-    /**
-     * @param string $path
-     * @param \SplFileInfo $file
-     * @return array|null
-     */
     protected function postFile(string $path, \SplFileInfo $file): ?array
     {
         $options = array_merge([
@@ -111,9 +80,9 @@ abstract class BaseProvider implements ProviderInterface
      */
     protected function deleteRequest(string $path): void
     {
-        $response = $this->client->delete($this->getUrl($path), $this->createOptions());
+        $response = $this->client->request('DELETE', $this->getUrl($path), $this->createOptions());
 
-        $json = $response->getBody()->getContents();
+        $json = $response->getContent(false);
 
         $code = $response->getStatusCode();
         if ($code && $code != 200) {
@@ -121,20 +90,11 @@ abstract class BaseProvider implements ProviderInterface
         }
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
     private function getUrl(string $path): string
     {
         return Oneflow::API_URL . $path;
     }
 
-    /**
-     * @param bool $isJson
-     * @return array
-     */
     private function createOptions(bool $isJson = true): array
     {
         $headers = ['x-oneflow-api-token' => $this->credentials->getToken()];
@@ -144,11 +104,11 @@ abstract class BaseProvider implements ProviderInterface
         }
 
         $options = [
-            RequestOptions::HEADERS => $headers,
+            'headers' => $headers,
         ];
 
         if ($isJson) {
-            $options[RequestOptions::HEADERS]['Content-Type'] = 'application/json';
+            $options['headers']['Content-Type'] = 'application/json';
         }
 
         return $options;

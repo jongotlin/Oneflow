@@ -2,8 +2,6 @@
 
 namespace JGI\Oneflow\Provider;
 
-use JGI\Oneflow\Model\Position;
-
 class PingProvider extends BaseProvider implements ProviderInterface
 {
     public function ping(): int

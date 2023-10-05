@@ -30,6 +30,7 @@ class Contract
      * @var Party[]
      */
     private $parties = [];
+    private ?Party $myParty = null;
 
     /**
      * @return int|null
@@ -113,5 +114,21 @@ class Contract
     public function addParty(Party $party): void
     {
         $this->parties[] = $party;
+    }
+
+    /**
+     * @return Party|null
+     */
+    public function getMyParty(): ?Party
+    {
+        return $this->myParty;
+    }
+
+    /**
+     * @param Party|null $myParty
+     */
+    public function setMyParty(?Party $myParty): void
+    {
+        $this->myParty = $myParty;
     }
 }

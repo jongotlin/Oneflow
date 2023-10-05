@@ -2,13 +2,12 @@
 
 namespace JGI\Oneflow\Provider;
 
-use JGI\Oneflow\Model\Position;
 use JGI\Oneflow\Model\User;
 
 class UserProvider extends BaseProvider implements ProviderInterface
 {
     /**
-     * @return User[]
+     * @return array<int, User>
      */
     public function index(): array
     {
