@@ -27,7 +27,12 @@ abstract class BaseProvider implements ProviderInterface
             throw new OneflowException($json);
         }
 
-        return json_decode($json, true);
+        $data = json_decode($json, true);
+        if (null === $data) {
+            throw new OneflowException('Content is not json: '.$json);
+        }
+
+        return $data;
     }
 
     protected function post(string $path, array $data): ?array
@@ -51,6 +56,8 @@ abstract class BaseProvider implements ProviderInterface
 
     protected function postFile(string $path, \SplFileInfo $file): ?array
     {
+        throw new \LogicException('Not implemented');
+        /*
         $options = array_merge([
             RequestOptions::MULTIPART => [
                 [
@@ -73,6 +80,7 @@ abstract class BaseProvider implements ProviderInterface
         }
 
         return json_decode($json, true);
+        */
     }
 
     protected function deleteRequest(string $path): void
