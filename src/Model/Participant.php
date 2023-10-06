@@ -4,106 +4,92 @@ namespace JGI\Oneflow\Model;
 
 class Participant
 {
-    /**
-     * @var int|null
-     */
-    private $id;
+    private ?int $id = null;
+    private ?string $name = null;
+    private ?string $title = null;
+    private ?string $email = null;
+    private string $deliveryChannel = 'none';
+    private string $signMethod = 'standard_esign';
+    private ?string $identificationNumber = null;
+    private bool $signatory = true;
 
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * @var string|null
-     */
-    private $title;
-
-    /**
-     * @var string|null
-     */
-    private $email;
-
-    /** @var string */
-    private $deliveryChannel = 'none';
-
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int|null $id
-     */
     public function setId(?int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @param string|null $email
-     */
     public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * @return string
-     */
     public function getDeliveryChannel(): string
     {
         return $this->deliveryChannel;
     }
 
-    /**
-     * @param string $deliveryChannel
-     */
     public function setDeliveryChannel(string $deliveryChannel): void
     {
         $this->deliveryChannel = $deliveryChannel;
+    }
+
+    public function getSignMethod(): string
+    {
+        return $this->signMethod;
+    }
+
+    public function setSignMethod(string $signMethod): void
+    {
+        $this->signMethod = $signMethod;
+    }
+
+    public function getIdentificationNumber(): ?string
+    {
+        return $this->identificationNumber;
+    }
+
+    public function setIdentificationNumber(?string $identificationNumber): void
+    {
+        $this->identificationNumber = $identificationNumber;
+    }
+
+    public function isSignatory(): bool
+    {
+        return $this->signatory;
+    }
+
+    public function setSignatory(bool $signatory): void
+    {
+        $this->signatory = $signatory;
     }
 }

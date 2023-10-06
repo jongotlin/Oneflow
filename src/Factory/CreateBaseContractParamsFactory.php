@@ -6,10 +6,6 @@ use JGI\Oneflow\Model\Contract;
 
 class CreateBaseContractParamsFactory
 {
-    /**
-     * @param Contract $contract
-     * @return array
-     */
     public function create(Contract $contract): array
     {
         $parties = [];
@@ -33,8 +29,8 @@ class CreateBaseContractParamsFactory
         }
 
         return [
-            'workspace_id' => $contract->getWorkspace()->getId(),
-            'template_id' => $contract->getTemplate()->getId(),
+            'workspace_id' => $contract->getWorkspace()?->getId(),
+            'template_id' => $contract->getTemplate()?->getId(),
             'parties' => $parties,
         ];
     }

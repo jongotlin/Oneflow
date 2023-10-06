@@ -6,9 +6,6 @@ use JGI\Oneflow\Model\Account;
 
 class AccountProvider extends BaseProvider implements ProviderInterface
 {
-    /**
-     * @return Account
-     */
     public function index(): Account
     {
         $data = $this->get('accounts/me/');

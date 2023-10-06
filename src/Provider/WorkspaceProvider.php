@@ -2,14 +2,12 @@
 
 namespace JGI\Oneflow\Provider;
 
-use JGI\Oneflow\Model\Position;
-use JGI\Oneflow\Model\User;
 use JGI\Oneflow\Model\Workspace;
 
 class WorkspaceProvider extends BaseProvider implements ProviderInterface
 {
     /**
-     * @return Workspace[]
+     * @return array<int, Workspace>
      */
     public function index(): array
     {

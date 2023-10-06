@@ -10,7 +10,7 @@ use JGI\Oneflow\Model\TemplateType;
 class TemplateProvider extends BaseProvider implements ProviderInterface
 {
     /**
-     * @return Template[]
+     * @return array<int, Template>
      */
     public function index(): array
     {
@@ -36,13 +36,9 @@ class TemplateProvider extends BaseProvider implements ProviderInterface
         return $result;
     }
 
-    /**
-     * @param array $row
-     * @return TemplateType|null
-     */
     private function getType(array $row): ?TemplateType
     {
-        if (! isset($row['template_type'])) {
+        if (!isset($row['template_type'])) {
             return null;
         }
 
@@ -60,12 +56,11 @@ class TemplateProvider extends BaseProvider implements ProviderInterface
     }
 
     /**
-     * @param array $row
-     * @return TemplateTag[]
+     * @return array<int, TemplateTag>
      */
     private function getTags(array $row): array
     {
-        if (! isset($row['tags']) && ! is_array($row['tags'])) {
+        if (!isset($row['tags'])) {
             return [];
         }
 

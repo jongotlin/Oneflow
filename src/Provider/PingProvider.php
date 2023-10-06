@@ -2,8 +2,6 @@
 
 namespace JGI\Oneflow\Provider;
 
-use JGI\Oneflow\Model\Position;
-
 class PingProvider extends BaseProvider implements ProviderInterface
 {
     public function ping(): int
@@ -13,7 +11,7 @@ class PingProvider extends BaseProvider implements ProviderInterface
         } catch (\Exception $exception) {
             return 401;
         }
-        if (count($data) == 0) {
+        if (0 === count($data)) {
             return 200;
         }
 

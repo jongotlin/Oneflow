@@ -5,24 +5,23 @@ declare(strict_types=1);
 namespace JGI\Oneflow\Tests\Provider;
 
 use JGI\Oneflow\Credentials;
-use JGI\Oneflow\Model\User;
 use JGI\Oneflow\Model\Workspace;
 use JGI\Oneflow\Oneflow;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 class WorkspaceProviderTest extends TestCase
 {
-    use ProviderTestTrait;
-
     /**
      * @test
      */
-    public function workspaceProvider()
+    public function workspace_provider()
     {
         $json = $this->getJson();
 
         $oneflow = new Oneflow(
-            $this->getHttpClient($json),
+            new MockHttpClient(new MockResponse($json)),
             $this->createMock(Credentials::class)
         );
 

@@ -8,11 +8,6 @@ use JGI\Oneflow\Model\Party;
 
 class ContractFactory
 {
-    /**
-     * @param array $data
-     *
-     * @return Contract
-     */
     public function create(array $data): Contract
     {
         $contract = new Contract();
@@ -21,7 +16,7 @@ class ContractFactory
         foreach ($data['parties'] as $partyData) {
             $party = new Party();
             $party->setName($partyData['name']);
-            $party->setIsMyParty($partyData['my_party'] == 1);
+            $party->setIsMyParty(1 == $partyData['my_party']);
             $party->setIdentificationNumber($partyData['identification_number']);
             $party->setCountryCode($partyData['country_code']);
 
