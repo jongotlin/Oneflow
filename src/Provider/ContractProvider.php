@@ -54,12 +54,6 @@ class ContractProvider extends BaseProvider implements ProviderInterface
         return $this->contractFactory->create($data);
     }
 
-    public function attachPdf(string $contractId, \SplFileInfo $file): void
-    {
-        $route = sprintf('%s/%s/files', $this->route, $contractId);
-        $this->postFile($route, $file);
-    }
-
     public function publish(string $contractId, string $subject, string $message): void
     {
         $data = [

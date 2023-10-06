@@ -59,35 +59,6 @@ abstract class BaseProvider implements ProviderInterface
         return $data;
     }
 
-    protected function postFile(string $path, \SplFileInfo $file): array
-    {
-        throw new \LogicException('Not implemented');
-        /*
-        $options = array_merge([
-            RequestOptions::MULTIPART => [
-                [
-                    'name' => 'upload_as',
-                    'contents' => 'expanded_pdf',
-                ],
-                [
-                    'name' => 'file',
-                    'contents' => fopen($file->getPathname(), 'r'),
-                ],
-            ],
-        ], $this->createOptions(false));
-
-        $response = $this->client->post($this->getUrl($path), $options);
-        $json = $response->getBody()->getContents();
-
-        $code = $response->getStatusCode();
-        if ($code && 200 != $code) {
-            throw new OneflowException($json);
-        }
-
-        return json_decode($json, true);
-        */
-    }
-
     protected function deleteRequest(string $path): void
     {
         $response = $this->client->request('DELETE', $this->getUrl($path), $this->createOptions());

@@ -8,7 +8,6 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
-        '@Symfony' => true,
         'php_unit_method_casing' => ['case' => 'snake_case'],
         'mb_str_functions' => true,
         'phpdoc_to_comment' => false,
