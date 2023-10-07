@@ -35,6 +35,23 @@ abstract class BaseProvider implements ProviderInterface
         return $data;
     }
 
+    protected function getPlain(string $path): string
+    {
+        $response = $this->client->request('GET',
+            $this->getUrl($path),
+            $this->createOptions(false)
+        );
+
+        $content = $response->getContent(false);
+
+        $code = $response->getStatusCode();
+        if ($code && 200 != $code) {
+            throw new OneflowException($content);
+        }
+
+        return $content;
+    }
+
     protected function post(string $path, array $data): array
     {
         $response = $this->client->request('POST',
