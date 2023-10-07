@@ -65,6 +65,7 @@ class Oneflow
     {
         return new PingProvider($this->client, $this->credentials);
     }
+
     public function files(): FileProvider
     {
         return new FileProvider($this->client, $this->credentials);

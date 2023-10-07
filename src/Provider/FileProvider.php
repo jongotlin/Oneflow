@@ -27,7 +27,7 @@ class FileProvider extends BaseProvider implements ProviderInterface
         return $files;
     }
 
-    public function download(int $contractId, int $fileId)
+    public function download(int $contractId, int $fileId): string
     {
         return $this->getPlain(sprintf('contracts/%s/files/%s?download=true', $contractId, $fileId));
     }
