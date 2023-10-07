@@ -4,6 +4,7 @@ namespace JGI\Oneflow;
 
 use JGI\Oneflow\Provider\AccountProvider;
 use JGI\Oneflow\Provider\ContractProvider;
+use JGI\Oneflow\Provider\FileProvider;
 use JGI\Oneflow\Provider\PingProvider;
 use JGI\Oneflow\Provider\TemplateProvider;
 use JGI\Oneflow\Provider\UserProvider;
@@ -63,5 +64,9 @@ class Oneflow
     public function ping(): PingProvider
     {
         return new PingProvider($this->client, $this->credentials);
+    }
+    public function files(): FileProvider
+    {
+        return new FileProvider($this->client, $this->credentials);
     }
 }
